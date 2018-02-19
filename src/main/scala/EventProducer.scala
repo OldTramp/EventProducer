@@ -2,7 +2,7 @@
 import scala.util.Random
 import com.opencsv.CSVReader
 import java.io.FileReader
-import java.time.{LocalDate, LocalTime}
+import java.time.{LocalDate, LocalDateTime, LocalTime}
 import java.util
 
 import net.andreinc.mockneat.MockNeat
@@ -25,21 +25,20 @@ object EventProducer {
   private val Rand = new Random()
   private val MNeat: MockNeat = MockNeat.threadLocal
 
-  def next():Event = {
-    val event = new Event()
-
+  def next(): Array[String] = {
     val product = Products.get(Rand.nextInt(Products.size()))
-    event.productCategory = product(0)
-    event.productName = product(1)
+    val productCategory: String = product(0)
+    val productName: String = product(1)
 
-    event.productPrice = gaussianPrice
+    val productPrice: Double = gaussianPrice
 
-    event.ipAddress = MNeat.ipv4s().types(IPv4Type.CLASS_A, IPv4Type.CLASS_B, IPv4Type.CLASS_C).`val`()
+    val ipAddress: String = MNeat.ipv4s().types(IPv4Type.CLASS_A, IPv4Type.CLASS_B, IPv4Type.CLASS_C).`val`()
 
-    event.purchaseDateTime = MNeat.localDates()
+    val purchaseDateTime: LocalDateTime = MNeat.localDates()
       .between(LocalDate.of(2018, 2, 12), LocalDate.of(2018, 2, 18)).`val`()
       .atTime(gaussianTime)
 
+    val event: Array[String] = Array(productCategory, productName, productPrice.toString, purchaseDateTime.toString, ipAddress)
     event
   }
 

@@ -1,6 +1,6 @@
 import java.io._
 import java.net._
-
+import com.opencsv.CSVWriter
 
 object Server {
 
@@ -10,20 +10,23 @@ object Server {
 
     val server = new ServerSocket(port)
     val socket = server.accept()
-    val out = new PrintStream(new BufferedOutputStream(socket.getOutputStream, BufferSize))
+
+    val csvWriter = new CSVWriter(
+      new OutputStreamWriter(socket.getOutputStream),
+      CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
+      CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END)
 
     //TODO quit on out.checkError() ?
     while (true) {
-
       val msg = EventProducer.next()
 
-      println(msg)
-      out.println(msg)
+      csvWriter.writeNext(msg)
+      //println(msg)
 
       Thread.sleep(100)
     }
 
-//    out.flush()
+    csvWriter.close()
     socket.close()
   }
 
