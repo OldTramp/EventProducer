@@ -16,11 +16,11 @@ object Server {
     while (true) {
 
       val msg = EventProducer.next()
-      Thread.sleep(100)
 
       println(msg)
       out.println(msg)
 
+      Thread.sleep(100)
     }
 
 //    out.flush()
