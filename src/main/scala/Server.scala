@@ -4,9 +4,7 @@ import com.opencsv.CSVWriter
 
 object Server {
 
-  private val BufferSize = 1024
-
-  def runServer(port: Int) {
+  def runServer(port: Int, amount: Int) {
 
     val server = new ServerSocket(port)
     val socket = server.accept()
@@ -16,15 +14,16 @@ object Server {
       CSVWriter.DEFAULT_SEPARATOR, CSVWriter.NO_QUOTE_CHARACTER,
       CSVWriter.DEFAULT_ESCAPE_CHARACTER, CSVWriter.DEFAULT_LINE_END)
 
+    println("Transmission started")
+
     //TODO quit on out.checkError() ?
-    while (true) {
+    for(i <- 1 to amount) {
       val msg = EventProducer.next()
 
       csvWriter.writeNext(msg)
-      //println(msg)
-
-      Thread.sleep(100)
     }
+
+    println("Transmission finished")
 
     csvWriter.close()
     socket.close()
