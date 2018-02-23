@@ -1,7 +1,7 @@
 
 import scala.util.Random
 import com.opencsv.CSVReader
-import java.io.FileReader
+import java.io.{InputStream, InputStreamReader}
 import java.time.{LocalDate, LocalDateTime, LocalTime}
 import java.util
 
@@ -19,7 +19,8 @@ object EventProducer {
 
   private val SecInDay = 60 * 60 * 24
 
-  private val csvReader = new CSVReader(new FileReader("src/main/resources/products.csv"))
+  val stream : InputStream = getClass.getResourceAsStream("/products.csv")
+  private val csvReader = new CSVReader(new InputStreamReader(stream))
   private val Products: util.List[Array[String]] = csvReader.readAll()
 
   private val Rand = new Random()
