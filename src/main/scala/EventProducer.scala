@@ -36,7 +36,7 @@ object EventProducer {
     val ipAddress: String = MNeat.ipv4s().types(IPv4Type.CLASS_A, IPv4Type.CLASS_B, IPv4Type.CLASS_C).`val`()
 
     val purchaseDateTime: LocalDateTime = MNeat.localDates()
-      .between(LocalDate.of(2018, 2, 12), LocalDate.of(2018, 2, 18)).`val`()
+      .between(LocalDate.of(2018, 2, 12), LocalDate.of(2018, 2, 19)).`val`()
       .atTime(gaussianTime)
 
     val event: Array[String] = Array(productCategory, productName, productPrice.toString, purchaseDateTime.toString, ipAddress)

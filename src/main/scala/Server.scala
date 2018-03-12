@@ -6,11 +6,8 @@ object Server {
 
   def runServer(port: Int, amount: Int) {
 
-    val server = new ServerSocket(port)
-
-    println("Creating a socket...")
-
-    val socket = server.accept()
+    println("Connecting to the port " + port)
+    val socket = new Socket("127.0.0.1", port)
 
     val csvWriter = new CSVWriter(
       new OutputStreamWriter(socket.getOutputStream),
