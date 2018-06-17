@@ -7,6 +7,7 @@ object Server {
   def runServer(port: Int, amount: Int) {
 
     println("Connecting to the port " + port)
+
     val socket = new Socket("127.0.0.1", port)
 
     val csvWriter = new CSVWriter(
@@ -16,7 +17,6 @@ object Server {
 
     println("Transmission started")
 
-    //TODO quit on out.checkError() ?
     for(i <- 1 to amount) {
       val msg = EventProducer.next()
 

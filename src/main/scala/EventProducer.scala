@@ -19,7 +19,7 @@ object EventProducer {
 
   private val SecInDay = 60 * 60 * 24
 
-  val stream : InputStream = getClass.getResourceAsStream("/products.csv")
+  val stream: InputStream = getClass.getResourceAsStream("/products.csv")
   private val csvReader = new CSVReader(new InputStreamReader(stream))
   private val Products: util.List[Array[String]] = csvReader.readAll()
 
@@ -45,7 +45,7 @@ object EventProducer {
 
   def gaussianTime: LocalTime = {
 
-    var second= Rand.nextGaussian * SecInDay/5 + SecInDay/2
+    var second = Rand.nextGaussian * SecInDay / 5 + SecInDay / 2
 
     if (second > SecInDay) {
       second = SecInDay - 1
@@ -60,7 +60,7 @@ object EventProducer {
 
     val scaled = Math.abs((Rand.nextGaussian + 10) * 100)
 
-    (scaled * 100).round /100.0
+    (scaled * 100).round / 100.0
   }
 
 }
